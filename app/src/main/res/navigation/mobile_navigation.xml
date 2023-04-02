@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.group3.speednewz.HomeFragment"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/nav_home_to_content"
+            app:destination="@id/nav_content"
+            app:popUpTo="@id/nav_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_content"
+        android:name="com.group3.speednewz.ContentFragment"
+        android:label="@string/content"
+        tools:layout="@layout/fragment_content" />
+
+    <fragment
+        android:id="@+id/nav_recent"
+        android:name="com.group3.speednewz.LatestFragment"
+        android:label="@string/latest"
+        tools:layout="@layout/fragment_latest" />
+
+    <fragment
+        android:id="@+id/nav_favorites"
+        android:name="com.group3.speednewz.FavoritesFragment"
+        android:label="@string/favorites"
+        tools:layout="@layout/fragment_favorites" />
+
+<!--    <fragment-->
+<!--        android:id="@+id/nav_archive"-->
+<!--        android:name="com.group3.speednewz.ArchiveFragment"-->
+<!--        android:label="@string/archive"-->
+<!--        tools:layout="@layout/fragment_archive" />-->
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.group3.speednewz.ProfileFragment"
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.group3.speednewz.SettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings" />
+</navigation>
