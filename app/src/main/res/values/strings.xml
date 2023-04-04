@@ -9,6 +9,7 @@
     <string name="favorites">Favorites</string>
     <string name="profile">Profile</string>
     <string name="login">Login</string>
+    <string name="logout">Logout</string>
 
     <string name="home_fragment">Home Fragment</string>
     <string name="settings_fragment">Settings Fragment</string>
@@ -17,6 +18,7 @@
     <string name="favorites_fragment">Favorites Fragment</string>
     <string name="profile_fragment">Profile Fragment</string>
     <string name="login_fragment">Login Fragment</string>
+    <string name="logout_fragment">Logout Fragment</string>
 
     <string name="username_text">Username</string>
     <string name="password_text">Password</string>
