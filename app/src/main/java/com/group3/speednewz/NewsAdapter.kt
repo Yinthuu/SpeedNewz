@@ -17,6 +17,12 @@ class NewsAdapter(
         notifyDataSetChanged()
     }
 
+    fun setFavoritesData(newsList: List<NewsData>) {
+        val favoritesList = newsList.filter { it.favorites }
+        this.newsList.addAll(favoritesList)
+    }
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsView {
         val view = layoutInflater.inflate(R.layout.news_view, parent, false)
         return NewsView(view, imageLoader)
