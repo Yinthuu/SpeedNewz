@@ -3,8 +3,10 @@ package com.group3.speednewz
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.group3.speednewz.models.NewsData
@@ -26,6 +28,9 @@ class HomeFragment : Fragment() {
 //                R.id.nav_home_to_content, null
 //            )
 //        )
+        val greetingsView = view.findViewById<TextView>(R.id.greetings)
+        greetingsView.text = "Hello ${UserSession.username}!"
+
         val newsView = view.findViewById<RecyclerView>(R.id.news_recycler_view)
         newsView.adapter = newsAdapter
         newsView.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
