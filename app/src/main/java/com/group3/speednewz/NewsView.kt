@@ -22,8 +22,17 @@ class NewsView(
         containerView.findViewById(R.id.news_title)
     }
 
+    private val favoritesView: ImageView by lazy {
+        containerView.findViewById(R.id.news_favorites)
+    }
+
     fun bindData(newsData: NewsData) {
         imageLoader.loadImage(newsData.imageURL, imageView)
         titleView.text = newsData.title
+        if (newsData.favorites.equals(true)) {
+            favoritesView.setVisibility(View.VISIBLE);
+        } else {
+            favoritesView.setVisibility(View.GONE);
+        }
     }
 }
