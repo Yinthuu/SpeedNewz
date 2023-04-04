@@ -1,5 +1,6 @@
 package com.group3.speednewz
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -25,7 +26,14 @@ class NewsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsView {
         val view = layoutInflater.inflate(R.layout.news_view, parent, false)
-        return NewsView(view, imageLoader)
+        val viewHolder = NewsView(view, imageLoader)
+        view.setOnClickListener {
+            val newsData = this.newsList[viewHolder.adapterPosition]
+            val newsDetails = Intent(view.context, NewsDetails::class.java)
+            newsDetails.putExtra("newsData", newsData)
+            view.context.startActivity(newsDetails)
+        }
+        return viewHolder
     }
 
     override fun getItemCount(): Int {

@@ -28,22 +28,26 @@ class LatestFragment : Fragment() {
             NewsData(
                 "https://cdn2.thecatapi.com/images/DBmIBhhyv.jpg",
                 "Title 1",
-                true
+                true,
+                "The content of news 1"
             ),
             NewsData(
                 "https://cdn2.thecatapi.com/images/KJF8fB_20.jpg",
                 "Title 2",
-                false
+                false,
+                "The content of news 2"
             ),
             NewsData(
                 "https://cdn2.thecatapi.com/images/DBmIBhhyv.jpg",
                 "Title 3",
-                true
+                true,
+                "The content of news 3"
             ),
             NewsData(
                 "https://cdn2.thecatapi.com/images/KJF8fB_20.jpg",
                 "Title 4",
-                false
+                false,
+                "The content of news 4"
             ),
         ))
         return view
