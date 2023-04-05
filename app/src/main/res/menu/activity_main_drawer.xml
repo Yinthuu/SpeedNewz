@@ -16,7 +16,7 @@
             android:title="@string/latest" />
         <item
             android:id="@+id/nav_favorites"
-            android:icon="@drawable/favorites"
+            android:icon="@drawable/favorites_selected"
             android:title="@string/favorites" />
     </group>
     <group

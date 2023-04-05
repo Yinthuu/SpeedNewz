@@ -5,6 +5,6 @@ import java.io.Serializable
 data class NewsData(
     val imageURL: String,
     val title: String,
-    val favorites: Boolean,
+    var favorites: Boolean,
     val content: String,
 ) : Serializable

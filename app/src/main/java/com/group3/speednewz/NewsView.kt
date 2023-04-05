@@ -1,14 +1,9 @@
 package com.group3.speednewz
 
-import android.content.Context
-import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.group3.speednewz.models.NewsData
 
 class NewsView(
@@ -29,10 +24,26 @@ class NewsView(
     fun bindData(newsData: NewsData) {
         imageLoader.loadImage(newsData.imageURL, imageView)
         titleView.text = newsData.title
-        if (newsData.favorites.equals(true)) {
-            favoritesView.setVisibility(View.VISIBLE);
-        } else {
-            favoritesView.setVisibility(View.GONE);
+//        if (newsData.favorites.equals(true)) {
+//            favoritesView.setVisibility(View.VISIBLE);
+//        } else {
+//            favoritesView.setVisibility(View.GONE);
+//        }
+        // Set the color of the favorites view based on the value of `favorites` in `newsData`
+        favoritesView.setImageResource(if (newsData.favorites) R.drawable.favorites_selected else R.drawable.favorites)
+
+        // Add an OnClickListener to `favoritesView`
+        favoritesView.setOnClickListener {
+            newsData.favorites = !newsData.favorites // toggle the value of `favorites`
+            favoritesView.setImageResource(
+                if (newsData.favorites) {
+                    R.drawable.favorites_selected
+                   //update in database
+                }
+                else{
+                    R.drawable.favorites
+                    //update in database
+                })
         }
     }
 }
