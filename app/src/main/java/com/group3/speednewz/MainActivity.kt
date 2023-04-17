@@ -3,6 +3,7 @@ package com.group3.speednewz
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
+import android.database.Cursor
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -18,7 +19,9 @@ import android.util.Log
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import com.group3.speednewz.models.NewsData
+import com.group3.speednewz.models.UsersData
 import java.time.Month
+import java.io.Serializable
 
 object UserSession {
     var isLoggedIn = false
@@ -27,8 +30,6 @@ object UserSession {
 
 class MainActivity( ) : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
-
-    //var db: SQLiteDatabase? = null
 
     @SuppressLint("Range")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,9 +41,9 @@ class MainActivity( ) : AppCompatActivity() {
         db?.execSQL("DROP TABLE IF EXISTS news")
 
         //Creating table 'users' if it does not exist with the fields userid, userName, password.
-        db?.execSQL("CREATE TABLE IF NOT EXISTS users (userId VARCHAR, userName VARCHAR, password VARCHAR)")
+        db?.execSQL("CREATE TABLE IF NOT EXISTS users (userId VARCHAR, username VARCHAR, password VARCHAR)")
         //inserts records into table
-        db?.execSQL("INSERT INTO users(userId, userName, password) VALUES ('001','admin','123456')");
+        db?.execSQL("INSERT INTO users(userId, username, password) VALUES ('001','admin','123456')");
 
 
 //Creating table 'news' if it does not exist with the fields imageURL, title, content, favorites, and dateTime.
@@ -89,6 +90,23 @@ class MainActivity( ) : AppCompatActivity() {
         db?.execSQL("INSERT INTO news(imageURL, title, content, favorites, dateTime) VALUES ('$imageURL4', '$title4', '$content4', $favorites4, '$dateTime3')")
 
 
+// select all columns from the user table
+        val queryUser = "SELECT * FROM users"
+
+// execute the query and get a cursor
+        val cursorUser = db?.rawQuery(queryUser, null)
+
+// create a list of news items to hold the data
+        val usersItems = mutableListOf<UsersData>()
+
+
+//Pass the list of news items to the HomeFragment.kt using a bundle.
+        val bundleUser = Bundle()
+        bundleUser.putSerializable("usersItems", ArrayList(usersItems))
+        val profileFragment = ProfileFragment()
+        profileFragment.arguments = bundleUser
+
+
 
 
 // select all columns from the news table
@@ -122,6 +140,17 @@ class MainActivity( ) : AppCompatActivity() {
             )
             setupActionBarWithNavController(navController, appBarConfiguration)
             findViewById<NavigationView>(R.id.nav_view)?.setupWithNavController(navController)
+
+            // Hide nav_favorites if UserSession.username is "Guest"
+            val navView = findViewById<NavigationView>(R.id.nav_view)
+            val navFavoritesItem = navView.menu.findItem(R.id.nav_favorites)
+            val navProfileItem = navView.menu.findItem(R.id.nav_profile)
+            val navLogoutItem = navView.menu.findItem(R.id.nav_logout)
+
+            navFavoritesItem.isVisible = UserSession.username != "Guest"
+            navProfileItem.isVisible = UserSession.username != "Guest"
+            navLogoutItem.isVisible = UserSession.username != "Guest"
+
         } else {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
@@ -133,6 +162,7 @@ class MainActivity( ) : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
 
     //Showing three DOTS menu on the right
 //    override fun onCreateOptionsMenu(menu: Menu): Boolean {

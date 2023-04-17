@@ -55,7 +55,6 @@ class LoginActivity : AppCompatActivity() {
         }
 
 
-// Retrieve data from the extras of the Intent object
 
 
         loginButton.setOnClickListener {
