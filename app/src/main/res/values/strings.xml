@@ -27,6 +27,7 @@
     <string name="button_update">Update</string>
 
     <string name="update_confirmation">"Successfully Updated!"</string>
+    <string name="err0r_username_password">"Username or/and password is wrong."</string>
 
 
     <string name="link_to_content_button"> Link to Content Button</string>

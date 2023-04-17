@@ -25,7 +25,7 @@ class NewsDetails : AppCompatActivity() {
         val newsData = intent.getSerializableExtra("newsData") as? NewsData
         if (newsData != null) {
             titleView.text = newsData.title
-            imageLoader.loadImage(newsData.imageURL, imageView)
+            imageLoader.loadImage(newsData.imageURL!!, imageView)
             contentView.text = newsData.content
         }
     }

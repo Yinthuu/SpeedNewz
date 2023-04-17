@@ -31,6 +31,15 @@ class LoginActivity : AppCompatActivity() {
         findViewById(R.id.login_as_guest)
     }
 
+    private val loginButton: Button by lazy {
+        findViewById(R.id.login)
+    }
+    private val usernameEditText: EditText by lazy {
+        findViewById(R.id.username)
+    }
+    private val passwordEditText: EditText by lazy {
+        findViewById(R.id.password)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -43,6 +52,23 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, MainActivity::class.java))
             //Complete and destroy login activity once successful
             finish()
+        }
+
+
+// Retrieve data from the extras of the Intent object
+
+
+        loginButton.setOnClickListener {
+// Check if the list is not null and contains the entered username and password
+            val loggedinUsername = usernameEditText.text.toString()
+            val loggedinPassword = passwordEditText.text.toString()
+//            if (usersList != null && usersList.contains(Pair(loggedinUsername, loggedinPassword))) {
+//                // Login successful
+//                println(" Login successful")
+//            } else {
+//                // Login failed
+//                println(" Login failed")
+//            }
         }
 
         val username = binding.username

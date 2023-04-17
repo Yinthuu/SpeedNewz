@@ -1,6 +1,7 @@
 package com.group3.speednewz
 
 import android.content.Intent
+import android.database.sqlite.SQLiteDatabase
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,7 @@ class NewsAdapter(
     private val imageLoader: ImageLoader
 ) : RecyclerView.Adapter<NewsView>() {
     private val newsList = mutableListOf<NewsData>()
-
+    var db: SQLiteDatabase? = null
     fun setData(catsData: List<NewsData>) {
         this.newsList.clear()
         this.newsList.addAll(catsData)
@@ -19,8 +20,10 @@ class NewsAdapter(
     }
 
     fun setFavoritesData(newsList: List<NewsData>) {
+        this.newsList.clear() // Clear the existing list
         val favoritesList = newsList.filter { it.favorites }
         this.newsList.addAll(favoritesList)
+        notifyDataSetChanged()
     }
 
 
@@ -35,7 +38,6 @@ class NewsAdapter(
         }
         return viewHolder
     }
-
     override fun getItemCount(): Int {
         return newsList.size
     }

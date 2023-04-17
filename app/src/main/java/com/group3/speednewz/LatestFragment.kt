@@ -27,27 +27,28 @@ class LatestFragment : Fragment() {
         newsAdapter.setData(listOf(
             NewsData(
                 "https://cdn2.thecatapi.com/images/DBmIBhhyv.jpg",
-                "Latest 1",
+                "Title 1",
                 true,
-                "The content of news 1"
-            ),
+                "The content of news 1",
+
+                ),
             NewsData(
                 "https://cdn2.thecatapi.com/images/KJF8fB_20.jpg",
-                "Latest 2",
+                "Title 2",
                 false,
-                "The content of news 2"
+                "The content of news 2",
             ),
             NewsData(
                 "https://cdn2.thecatapi.com/images/DBmIBhhyv.jpg",
-                "Latest 3",
-                true,
-                "The content of news 3"
+                "Title 3",
+                false,
+                "The content of news 3",
             ),
             NewsData(
                 "https://cdn2.thecatapi.com/images/KJF8fB_20.jpg",
-                "Latest 4",
+                "Title 4",
                 false,
-                "The content of news 4"
+                "The content of news 4",
             ),
         ))
         return view
