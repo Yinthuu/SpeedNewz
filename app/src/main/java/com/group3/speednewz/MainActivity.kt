@@ -18,7 +18,7 @@ import android.util.Log
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import com.group3.speednewz.models.NewsData
-
+import java.time.Month
 
 object UserSession {
     var isLoggedIn = false
@@ -36,47 +36,48 @@ class MainActivity( ) : AppCompatActivity() {
 //        val isLoggedIn = getSharedPreferences("prefs", Context.MODE_PRIVATE).getBoolean("isLoggedIn", false)
         //Creating the database 'SpeedyNewz'
         var db: SQLiteDatabase?  = openOrCreateDatabase("SpeedyNewz", Context.MODE_PRIVATE, null)
+        db?.execSQL("DROP TABLE IF EXISTS users")
+        db?.execSQL("DROP TABLE IF EXISTS news")
 
         //Creating table 'users' if it does not exist with the fields userid, userName, password.
         db?.execSQL("CREATE TABLE IF NOT EXISTS users (userId VARCHAR, userName VARCHAR, password VARCHAR)")
-        // clear the previous data from the users table
-        db?.execSQL("DELETE FROM users")
         //inserts records into table
         db?.execSQL("INSERT INTO users(userId, userName, password) VALUES ('001','admin','123456')");
 
 
-        //Creating table 'news' if it does not exist with the fields imageURL, title, content, favorites.
-        db?.execSQL("CREATE TABLE IF NOT EXISTS news (imageURL VARCHAR, title VARCHAR, content VARCHAR, favorites INTEGER)")
+//Creating table 'news' if it does not exist with the fields imageURL, title, content, favorites, and dateTime.
+        db?.execSQL("CREATE TABLE IF NOT EXISTS news (imageURL VARCHAR, title VARCHAR, content VARCHAR, favorites INTEGER, dateTime VARCHAR)")
 
-        // clear the previous data from the news table
-        db?.execSQL("DELETE FROM news")
 
-//create a new news item and insert it into the table
+// create a new news item and insert it into the table
         val imageURL1 = "https://cdn2.thecatapi.com/images/DBmIBhhyv.jpg"
         val title1 = "Breaking News!"
         val content1 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus placerat, ligula at efficitur blandit, turpis quam tristique erat, a suscipit lectus ex eget mauris."
         val isFavorite1 = true
         val favorites1 = if (isFavorite1) 1 else 0 // convert Boolean to INTEGER
+        val dateTime1 = LocalDateTime.of(2020, Month.JANUARY, 1, 0, 0).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
 
-        db?.execSQL("INSERT INTO news(imageURL, title, content, favorites) VALUES ('$imageURL1', '$title1', '$content1', $favorites1)")
+        db?.execSQL("INSERT INTO news(imageURL, title, content, favorites, dateTime) VALUES ('$imageURL1', '$title1', '$content1', $favorites1, '$dateTime1')")
 
-//create a new news item and insert it into the table
+// create a new news item and insert it into the table
         val imageURL2 = "https://cdn2.thecatapi.com/images/KJF8fB_20.jpg"
         val title2 = "Technology Update"
         val content2 = "Nulla facilisi. Curabitur semper purus non tortor pharetra bibendum. Sed et malesuada nunc. Integer id enim sit amet est auctor malesuada vitae vel velit."
         val isFavorite2 = true
         val favorites2 = if (isFavorite2) 1 else 0 // convert Boolean to INTEGER
+        val dateTime2 = LocalDateTime.of(2021, Month.APRIL, 1, 0, 0).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
 
-        db?.execSQL("INSERT INTO news(imageURL, title, content, favorites) VALUES ('$imageURL2', '$title2', '$content2', $favorites2)")
+        db?.execSQL("INSERT INTO news(imageURL, title, content, favorites, dateTime) VALUES ('$imageURL2', '$title2', '$content2', $favorites2, '$dateTime2')")
 
-//create a new news item and insert it into the table
+// create a new news item and insert it into the table
         val imageURL3 = "https://cdn2.thecatapi.com/images/vJB8rwfdX.jpg"
         val title3 = "Weather Update"
         val content3 = "Fusce aliquam mauris euismod, fringilla justo at, dignissim enim. Suspendisse auctor metus vel lorem bibendum euismod. Morbi nec velit massa."
         val isFavorite3 = false
         val favorites3 = if (isFavorite3) 1 else 0 // convert Boolean to INTEGER
+        val dateTime3 = LocalDateTime.of(2022, Month.JUNE, 1, 0, 0).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
 
-        db?.execSQL("INSERT INTO news(imageURL, title, content, favorites) VALUES ('$imageURL3', '$title3', '$content3', $favorites3)")
+        db?.execSQL("INSERT INTO news(imageURL, title, content, favorites, dateTime) VALUES ('$imageURL3', '$title3', '$content3', $favorites3, '$dateTime3')")
 
 //create another news item and insert it into the table
         val imageURL4 = "https://cdn2.thecatapi.com/images/KJF8fB_20.jpg"
@@ -84,8 +85,8 @@ class MainActivity( ) : AppCompatActivity() {
         val content4 = "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed at volutpat tellus. Aliquam malesuada tellus ac malesuada scelerisque."
         val isFavorite4 = false
         val favorites4 = if (isFavorite4) 1 else 0 // convert Boolean to INTEGER
-
-        db?.execSQL("INSERT INTO news(imageURL, title, content, favorites) VALUES ('$imageURL4', '$title4', '$content4', $favorites4)")
+        val dateTime4 = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+        db?.execSQL("INSERT INTO news(imageURL, title, content, favorites, dateTime) VALUES ('$imageURL4', '$title4', '$content4', $favorites4, '$dateTime3')")
 
 
 

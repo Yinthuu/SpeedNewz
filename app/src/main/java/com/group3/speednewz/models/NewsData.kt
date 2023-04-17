@@ -7,4 +7,5 @@ data class NewsData(
     val title: String,
     var favorites: Boolean,
     val content: String,
+    val dateTime: String
 ) : Serializable

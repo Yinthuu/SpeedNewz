@@ -57,9 +57,10 @@ class HomeFragment( ) : Fragment() {
                 println(imageURL+"-----------"+title)
                 val content = cursor.getString(cursor.getColumnIndex("content"))
                 val favorites = cursor.getInt(cursor.getColumnIndex("favorites"))
+                val dateTime = cursor.getString(cursor.getColumnIndex("dateTime"))
                 // convert INTEGER  to  Boolean
                 val isFavorites = if (favorites == 1) true else false
-                val news = NewsData(imageURL, title, isFavorites, content)
+                val news = NewsData(imageURL, title, isFavorites, content, dateTime)
                 newsList.add(news)
             } while (cursor.moveToNext())
         }
