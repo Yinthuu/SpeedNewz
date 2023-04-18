@@ -15,6 +15,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.group3.speednewz.ui.login.LoginActivity
 import android.content.Context
+import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -33,6 +34,8 @@ class MainActivity( ) : AppCompatActivity() {
 
     @SuppressLint("Range")
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.println(Log.DEBUG, "", "main activity onCreate")
+
         super.onCreate(savedInstanceState)
 //        val isLoggedIn = getSharedPreferences("prefs", Context.MODE_PRIVATE).getBoolean("isLoggedIn", false)
         //Creating the database 'SpeedyNewz'
@@ -51,17 +54,19 @@ class MainActivity( ) : AppCompatActivity() {
 
 
 // create a new news item and insert it into the table
-        val imageURL1 = "https://cdn2.thecatapi.com/images/DBmIBhhyv.jpg"
+//        val imageURL1 = "https://cdn2.thecatapi.com/images/DBmIBhhyv.jpg"
+        val imageURL1 = "https://i.cbc.ca/1.6722458.1674408256!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_780/britain-royals.jpg"
         val title1 = "Breaking News!"
         val content1 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus placerat, ligula at efficitur blandit, turpis quam tristique erat, a suscipit lectus ex eget mauris."
-        val isFavorite1 = true
+        val isFavorite1 = false
         val favorites1 = if (isFavorite1) 1 else 0 // convert Boolean to INTEGER
         val dateTime1 = LocalDateTime.of(2020, Month.JANUARY, 1, 0, 0).format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
 
         db?.execSQL("INSERT INTO news(imageURL, title, content, favorites, dateTime) VALUES ('$imageURL1', '$title1', '$content1', $favorites1, '$dateTime1')")
 
 // create a new news item and insert it into the table
-        val imageURL2 = "https://cdn2.thecatapi.com/images/KJF8fB_20.jpg"
+//        val imageURL2 = "https://cdn2.thecatapi.com/images/KJF8fB_20.jpg"
+        val imageURL2 = "https://i.cbc.ca/1.6745841.1676221358!/fileImage/httpImage/image.JPG_gen/derivatives/16x9_780/flying-object-canada-20230212.JPG"
         val title2 = "Technology Update"
         val content2 = "Nulla facilisi. Curabitur semper purus non tortor pharetra bibendum. Sed et malesuada nunc. Integer id enim sit amet est auctor malesuada vitae vel velit."
         val isFavorite2 = true
@@ -149,7 +154,7 @@ class MainActivity( ) : AppCompatActivity() {
 
             navFavoritesItem.isVisible = UserSession.username != "Guest"
             navProfileItem.isVisible = UserSession.username != "Guest"
-            navLogoutItem.isVisible = UserSession.username != "Guest"
+//            navLogoutItem.isVisible = UserSession.username != "Guest"
 
         } else {
             startActivity(Intent(this, LoginActivity::class.java))
@@ -175,3 +180,33 @@ class MainActivity( ) : AppCompatActivity() {
 //        return item.onNavDestinationSelected(findNavController(R.id.nav_host_fragment))
 //    }
 }
+
+//class DbHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+//    override fun onCreate(db: SQLiteDatabase?) {
+//        val createUserTableSql = """
+//            CREATE TABLE user (
+//            	id INTEGER PRIMARY KEY AUTOINCREMENT,
+//               	username varchar(50) NOT NULL,
+//            	password varchar(50) NOT NULL
+//            )
+//        """.trimIndent()
+//        db?.execSQL(createUserTableSql)
+//        val insertUsersSql = """
+//            INSERT INTO user VALUES ( "Jin", "jin123" )
+//        """.trimIndent()
+//        db?.execSQL(insertUsersSql)
+//    }
+//
+//    override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
+//
+//    }
+//
+//    override fun onDowngrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+//        super.onDowngrade(db, oldVersion, newVersion)
+//    }
+//
+//    companion object {
+//        const val DATABASE_VERSION = 1
+//        const val DATABASE_NAME = "FeedReader.db"
+//    }
+//}

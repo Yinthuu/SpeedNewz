@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +25,8 @@ class FavoritesFragment( ) : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        println("onCreateView")
+        Log.println(Log.DEBUG, "", "fav onCreateView")
 // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_favorites, container, false)
 
@@ -35,7 +38,7 @@ class FavoritesFragment( ) : Fragment() {
         val db = requireActivity().openOrCreateDatabase("SpeedyNewz", Context.MODE_PRIVATE, null)
 
 
-        val cursor = db.rawQuery("SELECT * FROM news", null)
+        val cursor = db.rawQuery("SELECT * FROM news WHERE favorites = 1", null)
         val count = cursor.count
 
         val newsList = mutableListOf<NewsData>()
@@ -67,5 +70,34 @@ class FavoritesFragment( ) : Fragment() {
         db.close()
 
         return view
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.println(Log.DEBUG, "", "fav onStart")
+        refresh(recyclerView)
+    }
+
+    private fun refresh(recyclerView: RecyclerView) {
+        val db = requireActivity().openOrCreateDatabase("SpeedyNewz", Context.MODE_PRIVATE, null)
+        val cursor = db.rawQuery("SELECT * FROM news", null)
+        val newsList = mutableListOf<NewsData>()
+        if (cursor.moveToFirst()) {
+            do {
+                val imageURL = cursor.getString(cursor.getColumnIndexOrThrow("imageURL"))
+                val title = cursor.getString(cursor.getColumnIndexOrThrow("title"))
+                val content = cursor.getString(cursor.getColumnIndexOrThrow("content"))
+                val favorites = cursor.getInt(cursor.getColumnIndexOrThrow("favorites"))
+                val dateTime = cursor.getString(cursor.getColumnIndexOrThrow("dateTime"))
+                val isFavorites = if (favorites == 1) true else false
+                val news = NewsData(imageURL, title, isFavorites, content, dateTime)
+                newsList.add(news)
+            } while (cursor.moveToNext())
+        }
+        println("newsList")
+        println(newsList.count())
+        println(cursor.count)
+        (recyclerView.adapter as NewsAdapter).setFavoritesData(newsList)
+        (recyclerView.adapter as NewsAdapter).notifyDataSetChanged()
     }
 }

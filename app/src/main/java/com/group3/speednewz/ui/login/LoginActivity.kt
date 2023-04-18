@@ -10,12 +10,14 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+//import com.group3.speednewz.DbHelper
 import com.group3.speednewz.MainActivity
 import com.group3.speednewz.databinding.ActivityLoginBinding
 
@@ -74,6 +76,25 @@ class LoginActivity : AppCompatActivity() {
         val password = binding.password
         val login = binding.login
         val loading = binding.loading
+
+//        val dbHelper = DbHelper(this)
+////        val db = dbHelper.writableDatabase
+//        val db = dbHelper.readableDatabase
+//        val args = arrayOf(username.text.toString())
+//        val cursor = db.query("user", null, "username = ?", args, null, null, null)
+//        var userPassword = ""
+//        with(cursor) {
+//            while (moveToNext()) {
+//                userPassword = getString(getColumnIndexOrThrow("password"))
+//            }
+//        }
+//        cursor.close()
+
+//        Log.d("login", userPassword)
+//        if (userPassword != password.text.toString()) {
+//            Toast.makeText(this, "Oops!",Toast.LENGTH_SHORT).show()
+//            return
+//        }
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)

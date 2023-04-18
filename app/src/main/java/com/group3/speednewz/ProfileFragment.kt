@@ -55,6 +55,7 @@ class ProfileFragment : Fragment() {
 
         // Set up click listener for the button
         button.setOnClickListener {
+            UserSession.username = etPersonName.text.toString()
             // Show a toast message
             Toast.makeText(requireContext(), getString(R.string.update_confirmation) , Toast.LENGTH_SHORT).show()
             updateConfirmationTextView.text = getString(R.string.update_confirmation)
